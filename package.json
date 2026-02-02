@@ -1,0 +1,12 @@
+{
+  "name": "learning-management-system-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd lms-full-st/server && npm run dev",
+    "start": "cd lms-full-st/server && npm start",
+    "install-server": "cd lms-full-st/server && npm install"
+  },
+  "description": "Workspace runner scripts for the LMS project",
+  "author": "Your Name"
+}
