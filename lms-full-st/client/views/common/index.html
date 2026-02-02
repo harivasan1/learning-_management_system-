@@ -31,16 +31,16 @@
                 <div class="col-md-7 login-right">
                     <h2 class="mb-4">Sign In to Your Account</h2>
                     
-                    <div class="role-selector" id="roleSelector">
-                        <div class="role-option" data-role="student">
+                    <div class="role-selector" id="roleSelector" role="tablist" aria-label="Select role">
+                        <div class="role-option" data-role="student" role="button" tabindex="0" aria-pressed="false">
                             <i class="fas fa-user-graduate"></i>
                             <div>Student</div>
                         </div>
-                        <div class="role-option" data-role="teacher">
+                        <div class="role-option" data-role="teacher" role="button" tabindex="0" aria-pressed="false">
                             <i class="fas fa-chalkboard-teacher"></i>
                             <div>Teacher</div>
                         </div>
-                        <div class="role-option" data-role="admin">
+                        <div class="role-option" data-role="admin" role="button" tabindex="0" aria-pressed="false">
                             <i class="fas fa-user-shield"></i>
                             <div>Admin</div>
                         </div>
@@ -61,6 +61,9 @@
                             <input type="checkbox" class="form-check-input" id="rememberMe">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
+
+                        <input type="hidden" id="role" name="role" value="student">
+                        <div id="loginError" class="error-text mt-2" role="alert" aria-live="polite" style="display:none;"></div>
                         
                         <button type="submit" class="btn btn-primary w-100 mb-3">
                             <i class="fas fa-sign-in-alt"></i> Sign In

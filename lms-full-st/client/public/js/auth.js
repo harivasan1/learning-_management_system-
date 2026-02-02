@@ -4,22 +4,51 @@ const API_URL = 'http://localhost:5000/api';
 // Role selection
 const roleOptions = document.querySelectorAll('.role-option');
 let selectedRole = 'student';
+const roleInput = document.getElementById('role');
 
 if (roleOptions.length > 0) {
     roleOptions.forEach(option => {
         option.addEventListener('click', function() {
-            roleOptions.forEach(opt => opt.classList.remove('active'));
+            roleOptions.forEach(opt => {
+                opt.classList.remove('active');
+                opt.setAttribute('aria-pressed', 'false');
+            });
             this.classList.add('active');
+            this.setAttribute('aria-pressed', 'true');
             selectedRole = this.dataset.role;
+            if (roleInput) roleInput.value = selectedRole;
+        });
+        option.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
         });
     });
     
     // Set default role
     roleOptions[0].classList.add('active');
+    roleOptions[0].setAttribute('aria-pressed', 'true');
+    if (roleInput) roleInput.value = selectedRole;
 }
 
 // Login form submission
 const loginForm = document.getElementById('loginForm');
+const loginErrorEl = document.getElementById('loginError');
+function showLoginError(msg) {
+    if (loginErrorEl) {
+        loginErrorEl.style.display = 'block';
+        loginErrorEl.textContent = msg;
+    } else {
+        alert(msg);
+    }
+}
+function clearLoginError() {
+    if (loginErrorEl) {
+        loginErrorEl.style.display = 'none';
+        loginErrorEl.textContent = '';
+    }
+}
 if (loginForm) {
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -33,7 +62,7 @@ if (loginForm) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password, role })
             });
             
             const data = await response.json();
@@ -52,7 +81,7 @@ if (loginForm) {
                     window.location.href = '/admin/dashboard';
                 }
             } else {
-                alert(data.message || 'Login failed');
+                showLoginError(data.message || 'Login failed');
             }
         } catch (error) {
             console.error('Login error:', error);
@@ -82,7 +111,7 @@ if (loginForm) {
                     window.location.href = '/admin/dashboard';
                 }
             } else {
-                alert('Invalid credentials or server not running. Use demo@demo.com');
+                showLoginError('Invalid credentials or server not running. Use demo@demo.com');
             }
         }
     });
@@ -96,7 +125,7 @@ if (registerForm) {
         
         const firstName = document.getElementById('firstName').value;
         const lastName = document.getElementById('lastName').value;
-        const email = document.getElementById('email').value;
+        const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         const role = document.getElementById('role').value;

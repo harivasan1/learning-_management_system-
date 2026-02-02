@@ -105,6 +105,12 @@ body {
     display: block;
 }
 
+.error-text {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+
 .feature-list {
     list-style: none;
     padding: 0;
