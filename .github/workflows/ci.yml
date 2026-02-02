@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install server dependencies
+      run: npm run install-server
+
+    - name: Run server tests
+      run: npm test --prefix lms-full-st/server
+
+    - name: Quick smoke test (server reachable)
+      run: |
+        # Start the server in background and do a quick curl check
+        cd lms-full-st/server
+        npm run dev &
+        SERVER_PID=$!
+        sleep 2
+        if curl -sSf http://localhost:5000 >/dev/null; then
+          echo "Server responded"
+          kill $SERVER_PID || true
+        else
+          echo "Server did not respond"
+          kill $SERVER_PID || true
+          exit 1
+        fi
