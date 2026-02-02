@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduLearn - Learning Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="landing-container">
+        <div class="login-card">
+            <div class="row g-0">
+                <div class="col-md-5 login-left">
+                    <div class="brand-logo">
+                        <i class="fas fa-graduation-cap"></i> EduLearn
+                    </div>
+                    <h3 class="mb-4">Welcome to Modern Learning</h3>
+                    <p class="mb-4">Transform your educational experience with our comprehensive learning management system.</p>
+                    <ul class="feature-list">
+                        <li>Interactive Course Content</li>
+                        <li>Real-time Progress Tracking</li>
+                        <li>Assignment Management</li>
+                        <li>Video Lectures & Resources</li>
+                        <li>Discussion Forums</li>
+                        <li>Certificate Generation</li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-7 login-right">
+                    <h2 class="mb-4">Sign In to Your Account</h2>
+                    
+                    <div class="role-selector" id="roleSelector">
+                        <div class="role-option" data-role="student">
+                            <i class="fas fa-user-graduate"></i>
+                            <div>Student</div>
+                        </div>
+                        <div class="role-option" data-role="teacher">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <div>Teacher</div>
+                        </div>
+                        <div class="role-option" data-role="admin">
+                            <i class="fas fa-user-shield"></i>
+                            <div>Admin</div>
+                        </div>
+                    </div>
+                    
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-3">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                        
+                        <div class="text-center">
+                            <a href="#" class="text-decoration-none">Forgot Password?</a>
+                            <span class="mx-2">|</span>
+                            <a href="/register" class="text-decoration-none">Create Account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>
