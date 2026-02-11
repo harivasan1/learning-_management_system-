@@ -8,5 +8,8 @@
     "install-server": "cd lms-full-st/server && npm install"
   },
   "description": "Workspace runner scripts for the LMS project",
-  "author": "Your Name"
+  "author": "Your Name",
+  "dependencies": {
+    "mongoose": "^9.1.5"
+  }
 }

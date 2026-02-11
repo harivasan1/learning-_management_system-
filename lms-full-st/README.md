@@ -424,4 +424,4 @@ For issues, questions, or contributions:
 
 **Built with ❤️ for Education**
 
-Made by [Your Name] | 2026
+
