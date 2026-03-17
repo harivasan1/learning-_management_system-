@@ -1,26 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middleware/auth');
+const {
+    enrollCourse,
+    getStudentEnrollments,
+    getCourseEnrollments,
+    updateEnrollmentProgress,
+    getEnrollment,
+    completeCourse
+} = require('../controllers/enrollmentController');
+const { protect, authorize } = require('../middleware/auth');
 
-// @desc    Enroll in a course
-// @route   POST /api/enrollments
-// @access  Private
-router.post('/', protect, async (req, res) => {
-    res.status(201).json({ success: true, message: 'Enroll in course' });
-});
+// Enroll in course
+router.post('/', protect, authorize('student'), enrollCourse);
 
-// @desc    Get student enrollments
-// @route   GET /api/enrollments/student/:studentId
-// @access  Private
-router.get('/student/:studentId', protect, async (req, res) => {
-    res.status(200).json({ success: true, message: 'Get student enrollments' });
-});
+// Get student's enrollments
+router.get('/student/:studentId', protect, getStudentEnrollments);
 
-// @desc    Update enrollment progress
-// @route   PUT /api/enrollments/:id/progress
-// @access  Private
-router.put('/:id/progress', protect, async (req, res) => {
-    res.status(200).json({ success: true, message: 'Update progress' });
-});
+// Get course enrollments (for teacher)
+router.get('/course/:courseId', protect, getCourseEnrollments);
+
+// Get specific enrollment
+router.get('/:id', protect, getEnrollment);
+
+// Update progress
+router.put('/:id/progress', protect, updateEnrollmentProgress);
+
+// Complete course
+router.put('/:id/complete', protect, completeCourse);
 
 module.exports = router;

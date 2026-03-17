@@ -1,33 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const {
+    getAllUsers,
+    getUserById,
+    updateUser,
+    deleteUser,
+    toggleUserActive,
+    getUserStats,
+    searchUsers
+} = require('../controllers/userController');
 const { protect, authorize } = require('../middleware/auth');
 
-// @desc    Get all users
-// @route   GET /api/users
-// @access  Private/Admin
-router.get('/', protect, authorize('admin'), async (req, res) => {
-    res.status(200).json({ success: true, message: 'Get all users' });
-});
+router.route('/')
+    .get(protect, authorize('admin'), getAllUsers);
 
-// @desc    Get user by ID
-// @route   GET /api/users/:id
-// @access  Private
-router.get('/:id', protect, async (req, res) => {
-    res.status(200).json({ success: true, message: 'Get user by ID' });
-});
+router.route('/:id')
+    .get(protect, getUserById)
+    .put(protect, updateUser)
+    .delete(protect, authorize('admin'), deleteUser);
 
-// @desc    Update user
-// @route   PUT /api/users/:id
-// @access  Private
-router.put('/:id', protect, async (req, res) => {
-    res.status(200).json({ success: true, message: 'Update user' });
-});
-
-// @desc    Delete user
-// @route   DELETE /api/users/:id
-// @access  Private/Admin
-router.delete('/:id', protect, authorize('admin'), async (req, res) => {
-    res.status(200).json({ success: true, message: 'Delete user' });
-});
+router.put('/:id/toggle-active', protect, authorize('admin'), toggleUserActive);
+router.get('/:id/stats', protect, getUserStats);
+router.get('/search/:query', protect, searchUsers);
 
 module.exports = router;

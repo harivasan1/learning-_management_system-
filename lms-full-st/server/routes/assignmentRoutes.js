@@ -1,33 +1,39 @@
 const express = require('express');
 const router = express.Router();
+const {
+    getAssignmentsByCourse,
+    getAssignment,
+    createAssignment,
+    updateAssignment,
+    deleteAssignment,
+    submitAssignment,
+    gradeSubmission,
+    getStudentSubmissions
+} = require('../controllers/assignmentController');
 const { protect, authorize } = require('../middleware/auth');
 
-// @desc    Get assignments for a course
-// @route   GET /api/assignments/course/:courseId
-// @access  Private
-router.get('/course/:courseId', protect, async (req, res) => {
-    res.status(200).json({ success: true, message: 'Get course assignments' });
-});
+// Get assignments for a course
+router.get('/course/:courseId', protect, getAssignmentsByCourse);
 
-// @desc    Create assignment
-// @route   POST /api/assignments
-// @access  Private (Teacher)
-router.post('/', protect, authorize('teacher', 'admin'), async (req, res) => {
-    res.status(201).json({ success: true, message: 'Create assignment' });
-});
+// Get specific assignment
+router.get('/:id', protect, getAssignment);
 
-// @desc    Submit assignment
-// @route   POST /api/assignments/:id/submit
-// @access  Private (Student)
-router.post('/:id/submit', protect, async (req, res) => {
-    res.status(200).json({ success: true, message: 'Submit assignment' });
-});
+// Create assignment (teacher/admin only)
+router.post('/', protect, authorize('teacher', 'admin'), createAssignment);
 
-// @desc    Grade assignment
-// @route   PUT /api/assignments/:assignmentId/submissions/:submissionId/grade
-// @access  Private (Teacher)
-router.put('/:assignmentId/submissions/:submissionId/grade', protect, authorize('teacher', 'admin'), async (req, res) => {
-    res.status(200).json({ success: true, message: 'Grade assignment' });
-});
+// Update assignment
+router.put('/:id', protect, authorize('teacher', 'admin'), updateAssignment);
+
+// Delete assignment
+router.delete('/:id', protect, authorize('teacher', 'admin'), deleteAssignment);
+
+// Submit assignment
+router.post('/:id/submit', protect, authorize('student'), submitAssignment);
+
+// Grade submission
+router.put('/:id/grade', protect, authorize('teacher', 'admin'), gradeSubmission);
+
+// Get student submissions
+router.get('/student/:studentId', protect, getStudentSubmissions);
 
 module.exports = router;
