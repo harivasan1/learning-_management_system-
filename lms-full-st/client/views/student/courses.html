@@ -3,14 +3,214 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Courses - Student</title>
+  <title>My Courses - Student | EduLearn LMS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .hero-section { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 80px 0; }
+    .course-card .card-img-top { height: 200px; object-fit: cover; }
+    .video-modal .modal-dialog { max-width: 800px; }
+    .course-desc { font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .filter-sidebar { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+  </style>
 </head>
 <body>
-  <div class="main-content">
-    <h1>My Courses</h1>
-    <div id="studentCourses">Loading courses...</div>
+  <!-- Top Navbar -->
+  <nav class="top-bar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="/dashboard" class="navbar-brand d-flex align-items-center gap-2">
+          <i class="fas fa-graduation-cap"></i> EduLearn
+        </a>
+        <div class="user-info">
+          <input type="text" class="form-control w-auto me-2" id="courseSearch" placeholder="Search courses...">
+          <div class="dropdown">
+            <a href="#" class="user-avatar d-flex align-items-center gap-2 text-decoration-none">
+              <div class="avatar">S</div>
+              <span>Student</span>
+              <i class="fas fa-chevron-down"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Filter Sidebar -->
+      <aside class="col-lg-3 filter-sidebar p-4 d-none d-lg-block">
+        <h5><i class="fas fa-filter me-2"></i>Filters</h5>
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-select">
+            <option>All</option>
+            <option>Programming</option>
+            <option>Design</option>
+            <option>Business</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Level</label>
+          <div class="d-flex flex-column gap-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="beginner">
+              <label class="form-check-label" for="beginner">Beginner</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="intermediate">
+              <label class="form-check-label" for="intermediate">Intermediate</label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="col-lg-9">
+        <!-- Hero Section with Journal Intro -->
+        <section class="hero-section text-center mb-5">
+          <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Discover Your Learning Path</h1>
+            <p class="lead mb-4">A Learning Management System (LMS) is a web-based application designed to manage, deliver, and track educational courses. Our platform provides instructors with tools to create courses and students with interactive learning experiences including video lectures and assessments.</p>
+            <a href="#" class="btn btn-light btn-lg px-5">Start Learning <i class="fas fa-play ms-2"></i></a>
+          </div>
+        </section>
+
+        <!-- Stats Cards -->
+        <div class="row mb-5">
+          <div class="col-md-3">
+            <div class="stat-card text-center p-4">
+              <div class="stats-icon bg-gradient"><i class="fas fa-book-open"></i></div>
+              <h3>50+</h3>
+              <p>Total Courses</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card text-center p-4">
+              <div class="stats-icon" style="background: var(--success-color);"><i class="fas fa-users"></i></div>
+              <h3>10K+</h3>
+              <p>Active Students</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card text-center p-4">
+              <div class="stats-icon" style="background: var(--warning-color);"><i class="fas fa-video"></i></div>
+              <h3>200+</h3>
+              <p>Video Hours</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card text-center p-4">
+              <div class="stats-icon" style="background: var(--danger-color);"><i class="fas fa-star"></i></div>
+              <h3>4.8/5</h3>
+              <p>Average Rating</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Courses Grid -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="h3 mb-0"><i class="fas fa-list me-2 text-primary"></i>My Courses</h2>
+          <small id="courseCount" class="text-muted">Loading...</small>
+        </div>
+        
+        <div id="studentCourses" class="row">
+          <!-- Dynamic content loaded here -->
+          <!-- Sample static cards for demo -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card course-card h-100">
+              <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" class="card-img-top" alt="Course Thumbnail">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <h5 class="card-title">Introduction to LMS</h5>
+                  <span class="badge bg-primary">New</span>
+                </div>
+                <p class="course-desc">The main objective is to develop a simple LMS that allows instructors to upload courses and manage learning materials, while students can enroll and take quizzes. Features include User Authentication, Course Management, Student Enrollment, Content Access, Quiz Management, and Result tracking.</p>
+                <div class="progress mb-3">
+                  <div class="progress-bar" style="width: 60%"></div>
+                </div>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-outline-primary flex-fill" onclick="previewVideo('dQw4w9WgXcQ')">
+                    <i class="fas fa-play me-1"></i>Preview
+                  </button>
+                  <a href="/course-detail?id=1" class="btn btn-primary flex-fill">
+                    <i class="fas fa-arrow-right me-1"></i>View Course
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- More sample cards... JS will replace -->
+        </div>
+      </main>
+    </div>
   </div>
+
+  <!-- Video Preview Modal -->
+  <div class="modal fade video-modal" id="videoModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content border-0">
+        <div class="modal-header border-0">
+          <h5 class="modal-title">Course Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="ratio ratio-16x9">
+            <iframe id="previewIframe" src="" title="Preview" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/courses.js"></script>
+  <script>
+    // Load courses on page load
+    document.addEventListener('DOMContentLoaded', async () => {
+      const coursesContainer = document.getElementById('studentCourses');
+      const countEl = document.getElementById('courseCount');
+      
+      // Static sample for demo, replace with dynamic
+      const sampleCourses = [
+        { id: 1, title: 'Introduction to LMS', videoId: 'dQw4w9WgXcQ', desc: 'User Authentication Module...', progress: 60 },
+        { id: 2, title: 'Course Management', videoId: '9bZkp7q19f0', desc: 'Course management allows...', progress: 30 },
+        { id: 3, title: 'Quiz System', videoId: 'dQw4w9WgXcQ', desc: 'Quiz Management Module...', progress: 85 }
+      ];
+      
+      sampleCourses.forEach(course => {
+        const col = document.createElement('div');
+        col.className = 'col-lg-4 col-md-6 mb-4';
+        col.innerHTML = `
+          <div class="card course-card h-100">
+            <img src="https://img.youtube.com/vi/${course.videoId}/maxresdefault.jpg" class="card-img-top" alt="${course.title}">
+            <div class="card-body">
+              <h5 class="card-title">${course.title}</h5>
+              <p class="course-desc">${course.desc}</p>
+              <div class="progress mb-3"><div class="progress-bar" style="width: ${course.progress}%"></div></div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary flex-fill" onclick="previewVideo('${course.videoId}')"><i class="fas fa-play"></i> Preview</button>
+                <a href="/views/student/course-detail.html?id=${course.id}" class="btn btn-primary flex-fill">Enroll</a>
+              </div>
+            </div>
+          </div>
+        `;
+        coursesContainer.appendChild(col);
+      });
+      countEl.textContent = `${sampleCourses.length} courses found`;
+    });
+
+    function previewVideo(videoId) {
+      document.getElementById('previewIframe').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      new bootstrap.Modal(document.getElementById('videoModal')).show();
+    }
+
+    // Search functionality
+    document.getElementById('courseSearch').addEventListener('input', function(e) {
+      // Filter logic here
+    });
+  </script>
 </body>
 </html>
+

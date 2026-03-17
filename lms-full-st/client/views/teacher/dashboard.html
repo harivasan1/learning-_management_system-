@@ -22,11 +22,111 @@
             </div>
         </div>
 
-        <h1>Teacher Dashboard</h1>
-        <p>Placeholder for teacher tools: manage courses, grading, and analytics.</p>
+        <div class="row g-4 mb-5">
+            <!-- Stats Overview -->
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card text-center p-4">
+                    <div class="stats-icon bg-primary"><i class="fas fa-book-open"></i></div>
+                    <h3 class="text-primary" id="coursesCount">12</h3>
+                    <p class="mb-0">Active Courses</p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card text-center p-4">
+                    <div class="stats-icon bg-success"><i class="fas fa-users"></i></div>
+                    <h3 class="text-success" id="studentsCount">156</h3>
+                    <p class="mb-0">Students</p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card text-center p-4">
+                    <div class="stats-icon bg-warning"><i class="fas fa-tasks"></i></div>
+                    <h3 class="text-warning" id="pendingGrades">23</h3>
+                    <p class="mb-0">Pending Grades</p>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card text-center p-4">
+                    <div class="stats-icon bg-info"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-info">94%</h3>
+                    <p class="mb-0">Avg Completion</p>
+                </div>
+            </div>
+        </div>
 
-        <div id="teacherContent">
-            <!-- Future widgets: created courses, pending submissions, student list -->
+        <div class="row g-4">
+            <!-- Quick Actions -->
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <a href="courses.html" class="btn btn-outline-primary w-100 h-100 p-4 text-center">
+                                    <i class="fas fa-book fa-2x mb-3 text-primary"></i>
+                                    <div>Manage Courses</div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="grading.html" class="btn btn-outline-warning w-100 h-100 p-4 text-center">
+                                    <i class="fas fa-clipboard-check fa-2x mb-3 text-warning"></i>
+                                    <div>Grade Assignments</div>
+                                    <span class="badge bg-danger ms-auto">23 pending</span>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="create-course.html" class="btn btn-outline-success w-100 h-100 p-4 text-center">
+                                    <i class="fas fa-plus-circle fa-2x mb-3 text-success"></i>
+                                    <div>Create Course</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Activity</h5>
+                        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center px-3 py-3 border-0">
+                                <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-user-plus fa-sm"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small">New student enrolled</div>
+                                    <div class="text-muted small">JavaScript Basics • 2h ago</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center px-3 py-3 border-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-clipboard-check fa-sm"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small">Assignment submitted</div>
+                                    <div class="text-muted small">Web Dev Project • 4h ago</div>
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center px-3 py-3 border-0">
+                                <div class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <i class="fas fa-chart-line fa-sm"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small">Course completion updated</div>
+                                    <div class="text-muted small">Data Science • 1d ago</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

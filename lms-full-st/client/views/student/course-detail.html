@@ -3,15 +3,170 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Course Detail</title>
+  <meta name="description" content="Advanced LMS Course Details">
+  <title>Course Details | EduLearn LMS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body { background: #f4f7fc; font-family: 'Poppins', sans-serif; }
+    .video-box iframe { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .lesson { padding: 12px; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+    .lesson:hover { background: #e6edff; }
+    .sidebar { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); height: fit-content; }
+    .note-box { height: 150px; resize: vertical; }
+    .journal-section { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+    .lesson-video { height: 250px; }
+    .progress-circle { position: relative; display: inline-block; }
+    .course-progress { font-size: 2rem; font-weight: bold; color: var(--primary-color); }
+    .btn { transition: transform 0.2s; }
+    .btn:hover { transform: scale(1.05); }
+    @media (max-width: 768px) { .sidebar { margin-top: 20px; } }
+  </style>
 </head>
 <body>
-  <div class="main-content">
-    <h1 id="courseTitle">Course Title</h1>
-    <p id="courseDescription">Course description placeholder.</p>
-    <div id="videoPlayer">Video player placeholder</div>
-  </div>
-  <script src="/js/api.js"></script>
+  <!-- Navbar -->
+  <nav class="top-bar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="/student/courses.html" class="btn btn-outline-light">
+          <i class="fas fa-arrow-left me-1"></i> Back to Courses
+        </a>
+        <div class="user-info">
+          <span class="badge bg-success">Enrolled</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container-fluid mt-4">
+    <div class="row">
+      <!-- Main Content -->
+      <section class="col-lg-8">
+        <!-- Course Header -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div>
+                <h1 class="h2 fw-bold">Introduction to Learning Management Systems</h1>
+                <div class="d-flex gap-2 mb-2">
+                  <span class="badge bg-primary"><i class="fas fa-clock me-1"></i>10 hours</span>
+                  <span class="badge bg-success"><i class="fas fa-users me-1"></i>150 students</span>
+                  <span class="badge bg-warning">4.8 rating</span>
+                </div>
+              </div>
+              <div class="progress-circle text-center">
+                <div class="course-progress">75%</div>
+                <svg width="80" height="80" viewBox="0 0 36 36">
+                  <path class="progress-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-width="3" fill="none"/>
+                  <path class="progress-ring-75" stroke-dasharray="47.1239, 100" stroke-dashoffset="0" stroke-width="3" fill="none"/>
+                </svg>
+              </div>
+            </div>
+            <p class="text-muted">Created by Dr. John Doe • Last updated 2 days ago</p>
+          </div>
+        </div>
+
+        <!-- Journal Content - Full Project Description -->
+        <div class="journal-section card mb-4 p-4">
+          <h2 class="h4 mb-4"><i class="fas fa-book-open me-2 text-primary"></i>Course Overview</h2>
+          <div class="mb-4">
+            <h5 class="fw-bold text-primary mb-2">📖 Abstract</h5>
+            <p class="lh-lg">A Learning Management System (LMS) is a web-based application designed to manage, deliver, and track educational courses and training programs. With the increasing use of digital technologies in education, LMS platforms have become essential tools for both instructors and students.</p>
+          </div>
+        </div>
+
+        <!-- Main Video Player -->
+        <article class="card p-4 mb-4">
+          <h3 class="h5 mb-3"><i class="fas fa-video me-2"></i>Introduction Video</h3>
+          <div class="video-box ratio ratio-16x9">
+            <iframe id="videoPlayer" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Main Course Video" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+          </div>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-success" onclick="markComplete()"><i class="fas fa-check me-1"></i>Mark Complete</button>
+            <button class="btn btn-warning" onclick="bookmarkVideo()"><i class="fas fa-bookmark me-1"></i>Bookmark</button>
+            <button class="btn btn-outline-primary" onclick="shareCourse()"><i class="fas fa-share me-1"></i>Share</button>
+          </div>
+        </article>
+
+        <!-- Lessons Accordion with Videos -->
+        <div class="card">
+          <div class="card-header bg-light">
+            <h3 class="h5 mb-0"><i class="fas fa-list me-2"></i>Course Lessons (8)</h3>
+          </div>
+          <div class="card-body">
+            <div class="accordion" id="lessonsAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#lesson1">
+                    Lesson 1: LMS Introduction <span class="badge bg-info ms-2">10min</span>
+                  </button>
+                </h2>
+                <div id="lesson1" class="accordion-collapse collapse show">
+                  <div class="accordion-body">
+                    <div class="ratio ratio-16x9 lesson-video mb-3">
+                      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Lesson 1" allowfullscreen></iframe>
+                    </div>
+                    <button class="btn btn-sm btn-success">Complete Lesson</button>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#lesson2">
+                    Lesson 2: Course Creation <span class="badge bg-info ms-2">15min</span>
+                  </button>
+                </h2>
+                <div id="lesson2" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <div class="ratio ratio-16x9 lesson-video mb-3">
+                      <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="Lesson 2" allowfullscreen></iframe>
+                    </div>
+                    <button class="btn btn-sm btn-success">Complete Lesson</button>
+                  </div>
+                </div>
+              </div>
+              <!-- More lessons... -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quiz Teaser -->
+        <div class="card mt-4">
+          <div class="card-body text-center p-5">
+            <i class="fas fa-clipboard-check fa-3x text-primary mb-3"></i>
+            <h3>Ready for Assessment?</h3>
+            <p class="text-muted mb-4">Complete all lessons to unlock the final quiz and earn your certificate.</p>
+            <button class="btn btn-primary btn-lg">Take Quiz <i class="fas fa-arrow-right ms-2"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="col-lg-4">
+        <div class="sidebar sticky-top" style="top: 100px;">
+          <div class="mb-4">
+            <h5 class="mb-3">Quick Actions</h5>
+            <div class="d-grid gap-2">
+              <button class="btn btn-outline-primary"><i class="fas fa-download me-2"></i>Download Materials</button>
+              <button class="btn btn-outline-success"><i class="fas fa-users me-2"></i>Discussion Forum</button>
+              <button class="btn btn-outline-warning"><i class="fas fa-question me-2"></i>Ask Question</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function markComplete() { alert('Lesson marked complete! 🎉'); }
+    function bookmarkVideo() { alert('Video bookmarked!'); }
+    function shareCourse() { 
+      if (navigator.share) navigator.share({title: 'Check this course!', url: window.location.href});
+      else alert('Share: ' + window.location.href); 
+    }
+  </script>
 </body>
 </html>
+

@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduLearn - Learning Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Sign in to EduLearn LMS - Comprehensive learning management system for students, teachers, and admins">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>EduLearn LMS - Sign In</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha384-mW3e0EZpOQEAejliL09ZhEojGtCLvLTJ3LjyKTXOnS4YawpDIsUkX0P/DtI0IsHV" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico">
 </head>
 <body>
     <div class="landing-container">
@@ -14,73 +17,96 @@
             <div class="row g-0">
                 <div class="col-md-5 login-left">
                     <div class="brand-logo">
-                        <i class="fas fa-graduation-cap"></i> EduLearn
+                        <i class="fas fa-graduation-cap"></i> EduLearn LMS
                     </div>
-                    <h3 class="mb-4">Welcome to Modern Learning</h3>
-                    <p class="mb-4">Transform your educational experience with our comprehensive learning management system.</p>
+                    <h3 class="mb-4">Welcome Back</h3>
+                    <p class="mb-4">Access your personalized learning dashboard with courses, assignments, and progress tracking.</p>
                     <ul class="feature-list">
-                        <li>Interactive Course Content</li>
-                        <li>Real-time Progress Tracking</li>
-                        <li>Assignment Management</li>
-                        <li>Video Lectures & Resources</li>
-                        <li>Discussion Forums</li>
-                        <li>Certificate Generation</li>
+                        <li><i class="fas fa-book-open me-2 text-secondary"></i>Interactive Course Content</li>
+                        <li><i class="fas fa-chart-line me-2 text-secondary"></i>Real-time Progress Tracking</li>
+                        <li><i class="fas fa-tasks me-2 text-secondary"></i>Assignment Management</li>
+                        <li><i class="fas fa-video me-2 text-secondary"></i>Video Lectures & Resources</li>
+                        <li><i class="fas fa-comments me-2 text-secondary"></i>Discussion Forums</li>
+                        <li><i class="fas fa-certificate me-2 text-secondary"></i>Certificate Generation</li>
                     </ul>
                 </div>
                 
                 <div class="col-md-7 login-right">
                     <h2 class="mb-4">Sign In to Your Account</h2>
                     
-                    <div class="role-selector" id="roleSelector" role="tablist" aria-label="Select role">
-                        <div class="role-option" data-role="student" role="button" tabindex="0" aria-pressed="false">
+                    <div class="role-selector" id="roleSelector" role="tablist" aria-label="Select your role">
+                        <div class="role-option" data-role="student" role="button" tabindex="0" aria-pressed="true" aria-label="Student role">
                             <i class="fas fa-user-graduate"></i>
                             <div>Student</div>
                         </div>
-                        <div class="role-option" data-role="teacher" role="button" tabindex="0" aria-pressed="false">
+                        <div class="role-option" data-role="teacher" role="button" tabindex="0" aria-pressed="false" aria-label="Teacher role">
                             <i class="fas fa-chalkboard-teacher"></i>
                             <div>Teacher</div>
                         </div>
-                        <div class="role-option" data-role="admin" role="button" tabindex="0" aria-pressed="false">
+                        <div class="role-option" data-role="admin" role="button" tabindex="0" aria-pressed="false" aria-label="Admin role">
                             <i class="fas fa-user-shield"></i>
                             <div>Admin</div>
                         </div>
                     </div>
                     
-                    <form id="loginForm">
+                    <form id="loginForm" novalidate>
                         <div class="mb-3">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" autocomplete="email" placeholder="Enter your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                            <div class="invalid-feedback">Please provide a valid email address.</div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="password" autocomplete="current-password" placeholder="Enter your password" minlength="8" required>
+                            <div class="invalid-feedback">Password must be at least 8 characters.</div>
                         </div>
                         
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                            <label class="form-check-label small" for="rememberMe">Keep me signed in for 30 days</label>
                         </div>
 
                         <input type="hidden" id="role" name="role" value="student">
-                        <div id="loginError" class="error-text mt-2" role="alert" aria-live="polite" style="display:none;"></div>
+                        <div id="loginError" class="error-text alert alert-danger mt-2" role="alert" aria-live="polite" style="display:none;"></div>
                         
-                        <button type="submit" class="btn btn-primary w-100 mb-3">
-                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        <button type="submit" class="btn btn-primary w-100 mb-3" id="loginBtn">
+                            <span class="btn-text"><i class="fas fa-sign-in-alt me-2"></i>Sign In</span>
+                            <div class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></div>
                         </button>
                         
                         <div class="text-center">
-                            <a href="#" class="text-decoration-none">Forgot Password?</a>
-                            <span class="mx-2">|</span>
-                            <a href="/register" class="text-decoration-none">Create Account</a>
+                            <a href="forgot-password.html" class="text-decoration-none me-3">Forgot Password?</a>
+                            <span class="mx-2 text-muted">•</span>
+                            <a href="register.html" class="text-decoration-none">Create Account</a>
                         </div>
                     </form>
+                    
+                    <div class="text-center mt-4 p-3 bg-light rounded small">
+                        <div class="row text-center">
+                            <div class="col-4 border-end">
+                                <div class="fw-bold text-primary">Demo Login</div>
+                                <div class="text-muted">student@demo.com</div>
+                                <small>demo1234</small>
+                            </div>
+                            <div class="col-4 border-end">
+                                <div class="fw-bold text-success">Demo Teacher</div>
+                                <div class="text-muted">teacher@demo.com</div>
+                                <small>demo1234</small>
+                            </div>
+                            <div class="col-4">
+                                <div class="fw-bold text-warning">Demo Admin</div>
+                                <div class="text-muted">admin@demo.com</div>
+                                <small>demo1234</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
+    <script src="/js/auth.js" defer></script>
 </body>
 </html>

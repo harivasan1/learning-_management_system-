@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - EduLearn</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="description" content="Create your EduLearn LMS account - Choose your role: Student, Teacher, or Admin">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>Create Account | EduLearn LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha384-mW3e0EZpOQEAejliL09ZhEojGtCLvLTJ3LjyKTXOnS4YawpDIsUkX0P/DtI0IsHV" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/public/assets/favicon.ico">
 </head>
 <body>
     <div class="landing-container">
@@ -13,58 +17,79 @@
             <div class="row g-0">
                 <div class="col-md-5 login-left">
                     <div class="brand-logo">
-                        <i class="fas fa-graduation-cap"></i> EduLearn
+                        <i class="fas fa-graduation-cap"></i> EduLearn LMS
                     </div>
-                    <h3 class="mb-4">Create your account</h3>
-                    <p class="mb-4">Join EduLearn — choose your role to get started.</p>
+                    <h3 class="mb-4">Join EduLearn</h3>
+                    <p class="mb-4">Create your free account and start your learning journey today. Choose your role to access personalized features.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-unlock me-2 text-secondary"></i>Secure account creation</li>
+                        <li><i class="fas fa-shield-alt me-2 text-secondary"></i>Password protection</li>
+                        <li><i class="fas fa-users me-2 text-secondary"></i>Role-based dashboard</li>
+                        <li><i class="fas fa-bell me-2 text-secondary"></i>Activity notifications</li>
+                    </ul>
                 </div>
                 <div class="col-md-7 login-right">
-                    <h2 class="mb-4">Register</h2>
-                    <form id="registerForm">
-                        <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="First name" required>
+                    <h2 class="mb-4">Create Account</h2>
+                    <form id="registerForm" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="firstName" autocomplete="given-name" placeholder="John" pattern="[A-Za-z\s]{2,}" required>
+                                <div class="invalid-feedback">First name is required (letters only).</div>
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+                            <div class="col-md-6">
+                                <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="lastName" autocomplete="family-name" placeholder="Doe" pattern="[A-Za-z\s]{2,}" required>
+                                <div class="invalid-feedback">Last name is required (letters only).</div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" autocomplete="email" placeholder="john@example.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                            <div class="invalid-feedback">Please provide a valid email address.</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                            <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required>
+                            <div id="passwordStrength" class="form-text small"></div>
+                            <div class="invalid-feedback">Password must be at least 8 characters.</div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                        <div class="mb-4">
+                            <label for="confirmPassword" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="confirmPassword" autocomplete="new-password" placeholder="Repeat password" minlength="8" required>
+                            <div class="invalid-feedback">Passwords must match.</div>
                         </div>
 
-                        <div class="role-selector" id="roleSelector">
-                            <div class="role-option" data-role="student" role="button" tabindex="0" aria-pressed="false">
+                        <div class="role-selector" id="roleSelector" role="tablist" aria-label="Select your role">
+                            <div class="role-option active" data-role="student" role="button" tabindex="0" aria-pressed="true" aria-label="Student - Enroll in courses">
                                 <i class="fas fa-user-graduate"></i>
                                 <div>Student</div>
+                                <small class="opacity-75">Enroll in courses</small>
                             </div>
-                            <div class="role-option" data-role="teacher" role="button" tabindex="0" aria-pressed="false">
+                            <div class="role-option" data-role="teacher" role="button" tabindex="0" aria-pressed="false" aria-label="Teacher - Create courses">
                                 <i class="fas fa-chalkboard-teacher"></i>
                                 <div>Teacher</div>
+                                <small class="opacity-75">Create courses</small>
                             </div>
-                            <div class="role-option" data-role="admin" role="button" tabindex="0" aria-pressed="false">
+                            <div class="role-option" data-role="admin" role="button" tabindex="0" aria-pressed="false" aria-label="Admin - Manage platform">
                                 <i class="fas fa-user-shield"></i>
                                 <div>Admin</div>
+                                <small class="opacity-75">Manage platform</small>
                             </div>
                         </div>
 
                         <input type="hidden" id="role" name="role" value="student">
-                        <div id="registerError" class="error-text mt-2" role="alert" aria-live="polite" style="display:none;"></div>
-
-                        <button type="submit" class="btn btn-primary w-100 mb-3">Create Account</button>
+                        <div id="registerError" class="error-text alert alert-danger mt-2" role="alert" aria-live="polite" style="display:none;"></div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mb-3" id="registerBtn">
+                            <span class="btn-text"><i class="fas fa-user-plus me-2"></i>Create Account</span>
+                            <div class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></div>
+                        </button>
+                        
                         <div class="text-center">
-                            <a href="/" class="text-decoration-none">Already have an account? Sign in</a>
+                            <a href="index.html" class="text-decoration-none">
+                                <i class="fas fa-arrow-left me-1"></i>Already have account? Sign in
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -72,7 +97,45 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
+    <script src="/js/auth.js" defer></script>
+    <script>
+        // Password strength indicator
+        const passwordInput = document.getElementById('password');
+        const strengthIndicator = document.getElementById('passwordStrength');
+        const confirmPassword = document.getElementById('confirmPassword');
+        
+        passwordInput.addEventListener('input', checkPasswordStrength);
+        confirmPassword.addEventListener('input', checkPasswordMatch);
+        
+        function checkPasswordStrength() {
+            const value = passwordInput.value;
+            const strength = getPasswordStrength(value);
+            strengthIndicator.textContent = strength.text;
+            strengthIndicator.className = `form-text small text-${strength.color}`;
+        }
+        
+        function checkPasswordMatch() {
+            if (confirmPassword.value && confirmPassword.value !== passwordInput.value) {
+                confirmPassword.classList.add('is-invalid');
+            } else {
+                confirmPassword.classList.remove('is-invalid');
+            }
+        }
+        
+        function getPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+            
+            if (strength === 5) return { text: 'Strong ✓', color: 'success' };
+            if (strength >= 3) return { text: 'Good ✓', color: 'warning' };
+            if (strength >= 2) return { text: 'Weak', color: 'danger' };
+            return { text: 'Very weak', color: 'secondary' };
+        }
+    </script>
 </body>
 </html>
